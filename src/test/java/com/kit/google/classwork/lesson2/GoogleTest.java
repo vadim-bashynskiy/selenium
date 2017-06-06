@@ -1,4 +1,4 @@
-package com.kit.google.homework.lesson1;
+package com.kit.google.classwork.lesson2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +16,7 @@ import static org.testng.Assert.assertTrue;
 /**
  * Created by testu on 6/6/2017.
  */
-public class StylusSearchTest {
+public class GoogleTest {
     private String googleSearch;
     private WebDriver webDriver;
     @BeforeClass
@@ -27,29 +27,24 @@ public class StylusSearchTest {
         webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        //1.Open http://stylus.com.ua/ in Chrome
-        googleSearch = "http://www.stylus.com.ua";
+        googleSearch = "https://www.google.com.ua";
         webDriver.get(googleSearch);
     }
     @Test
     public void searchTest(){
-        //2.In the search field enter "Sony Z2" and click find button
-        String searchText = "Sony Xperia Z2 Black";
-        By searchLocator = By.cssSelector("#head-search>form>input");
-        WebElement searchField = webDriver.findElement(searchLocator);
-        searchField.sendKeys(searchText);
-        searchField.submit();
-        By linkLocator = By.cssSelector(".item.out-of-stock");
+        ////*[@data-pid="23"][@data-ved="0EMIuCBIoAA"] xpath атрибуты
+        String text = "Sele";
+        By linkLocator = By.className("logo-subtext");
         WebElement link = webDriver.findElement(linkLocator);
-        //3.On the result page verify that Sony Z2 found (choose any link with Sony Z2 and verify by it's content)
-        assertTrue(link.getText().contains(searchText));
-        //4.Click on the same Sony Z2 link
-        link.click();
-        //5. Verify that Sony Z2 page is opened
-        linkLocator = By.className("code");
+        assertTrue(link.getText().contains("Україна"));
+        linkLocator = By.name("q");
+         link = webDriver.findElement(linkLocator);
+         link.sendKeys(text);
+        linkLocator = By.id("lst-ib");
         link = webDriver.findElement(linkLocator);
-        String content = "Код товара";
-        assertTrue(link.getText().contains(content));
+        link.sendKeys(text);
+        webDriver.findElement(By.cssSelector("input[name='btnK'][jsaction='sf.chk']"));
+
     }
     @AfterClass
     public void closeUp(){
