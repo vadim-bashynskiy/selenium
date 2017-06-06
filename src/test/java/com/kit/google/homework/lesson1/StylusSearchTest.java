@@ -26,20 +26,28 @@ public class StylusSearchTest {
         webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        //1.Open http://stylus.com.ua/ in Chrome
         googleSearch = "http://www.stylus.com.ua";
         webDriver.get(googleSearch);
     }
     @Test
     public void searchTest(){
-        String searchText = "Sony Z2";
+        //2.In the search field enter "Sony Z2" and click find button
+        String searchText = "Sony Xperia Z2 Black";
         By searchLocator = By.cssSelector("#head-search>form>input");
         WebElement searchField = webDriver.findElement(searchLocator);
         searchField.sendKeys(searchText);
         searchField.submit();
-        By linkLocator = By.xpath(".//*[@id='content']/h1");
+        By linkLocator = By.cssSelector(".item.out-of-stock");
         WebElement link = webDriver.findElement(linkLocator);
+        //3.On the result page verify that Sony Z2 found (choose any link with Sony Z2 and verify by it's content)
         assertTrue(link.getText().contains(searchText));
-
+        //4.Click on the same Sony Z2 link
+        link.click();
+        //5. Verify that Sony Z2 page is opened
+        linkLocator = By.cssSelector(".add-fav.auth-guest.cursor-pointer");
+        WebElement link1 = webDriver.findElement(linkLocator);
+        String content = "В избранное";
+        assertTrue(link1.getText().contains(content));
     }
-
 }
