@@ -21,12 +21,12 @@ public class StylusSearchTest {
     private WebDriver webDriver;
     @BeforeClass
     public void setUp(){
-        System.setProperty("webdriver.chrome.driver","D:\\kitcenterCourses\\selenium\\src\\main\\resources\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver","C:\\selenium\\src\\main\\resources\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("disable-infobars");
         webDriver = new ChromeDriver(options);
         webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         //1.Open http://stylus.com.ua/ in Chrome
         googleSearch = "http://www.stylus.com.ua";
         webDriver.get(googleSearch);

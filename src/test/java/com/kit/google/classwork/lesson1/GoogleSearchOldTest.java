@@ -1,5 +1,6 @@
 package com.kit.google.classwork.lesson1;
 
+import com.kit.core.WebDriverTestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -17,22 +18,12 @@ import static org.testng.AssertJUnit.assertEquals;
 /**
  * Created by testu on 6/2/2017.
  */
-public class GoogleSearchTest {
-    private String googleSearch;
-    private WebDriver webDriver;
-    @BeforeClass
-    public void setUp(){
-        System.setProperty("webdriver.chrome.driver","C:\\selenium\\src\\main\\resources\\chromedriver.exe");
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("disable-infobars");
-        webDriver = new ChromeDriver(options);
-        webDriver.manage().window().maximize();
-        webDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        googleSearch = "https://www.google.com.ua";
-        webDriver.get(googleSearch);
-    }
+public class GoogleSearchOldTest extends WebDriverTestBase{
+    private String googleSearch= "https://www.google.com.ua";
+
     @Test
     public void searchTest(){
+        webDriver.get(googleSearch);
         String searchText = "Selenium";
         By searchLocator = By.name("q");
         WebElement searchField = webDriver.findElement(searchLocator);
@@ -41,6 +32,5 @@ public class GoogleSearchTest {
         By linkLocator = By.cssSelector(".r>a");
         WebElement link = webDriver.findElement(linkLocator);
         assertTrue(link.getText().contains(searchText));
-
     }
 }
