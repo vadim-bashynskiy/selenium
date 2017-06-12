@@ -1,4 +1,4 @@
-package com.kit.google.homework.lesson1;
+package com.kit.google.homework.lesson1.lesson2;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,9 +14,9 @@ import java.util.concurrent.TimeUnit;
 import static org.testng.Assert.assertTrue;
 
 /**
- * Created by testu on 6/6/2017.
+ * Created by VBashynskyi on 08.06.2017.
  */
-public class StylusSearchTest {
+public class CodeSchoolSignInTest {
     private String googleSearch;
     private WebDriver webDriver;
     @BeforeClass
@@ -28,28 +28,29 @@ public class StylusSearchTest {
         webDriver.manage().window().maximize();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         //1.Open http://stylus.com.ua/ in Chrome
-        googleSearch = "http://www.stylus.com.ua";
+        googleSearch = "https://www.codeschool.com/users/sign_in";
         webDriver.get(googleSearch);
     }
     @Test
-    public void searchTest(){
-        //2.In the search field enter "Sony Z2" and click find button
-        String searchText = "Sony Xperia Z2 Black";
-        By searchLocator = By.cssSelector("#head-search>form>input");
+    public void loginTest() throws InterruptedException {
+        //2.
+        String input = "underklon@mail.ru";
+        By searchLocator = By.id("user_login");
+        //find email field and input email
         WebElement searchField = webDriver.findElement(searchLocator);
-        searchField.sendKeys(searchText);
-        searchField.submit();
-        By linkLocator = By.cssSelector(".item.out-of-stock");
-        WebElement link = webDriver.findElement(linkLocator);
-        //3.On the result page verify that Sony Z2 found (choose any link with Sony Z2 and verify by it's content)
-        assertTrue(link.getText().contains(searchText));
-        //4.Click on the same Sony Z2 link
-        link.click();
-        //5. Verify that Sony Z2 page is opened
-        linkLocator = By.className("code");
-        link = webDriver.findElement(linkLocator);
-        String content = "Код товара";
-        assertTrue(link.getText().contains(content));
+        searchField.sendKeys(input);
+        //find pass field and input pass
+        input = "83115261990";
+        By linkLocator = By.id("user_password");
+        searchField = webDriver.findElement(linkLocator);
+        searchField.sendKeys(input);
+        Thread.sleep(2000);
+        //log in
+        webDriver.findElement(By.cssSelector(".form-btn.btn.btn--l.mbm")).click();
+        searchField = webDriver.findElement(By.cssSelector("a[href='/account'][class='nav-item-link list-item-link']"));
+        String getClass = "nav-item-link list-item-link";
+        assertTrue(searchField.getAttribute("class").equals(getClass));
+
     }
     @AfterClass
     public void closeUp(){
