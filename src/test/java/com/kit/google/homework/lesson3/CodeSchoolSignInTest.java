@@ -1,8 +1,8 @@
 package com.kit.google.homework.lesson3;
 
 import com.kit.core.WebDriverTestBase;
-import com.kit.pages.CodeSchoolLoginPage;
-import com.kit.pages.CodeSchoolMyBoardPage;
+import com.kit.pages.codeSchool.CodeSchoolLoginPage;
+import com.kit.pages.codeSchool.CodeSchoolMyBoardPage;
 import org.testng.annotations.Test;
 import static org.testng.Assert.assertTrue;
 
