@@ -1,10 +1,7 @@
 package com.kit.util;
 
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Attachment;
@@ -17,16 +14,32 @@ import static com.google.common.io.Files.toByteArray;
  * Created by testu on 6/16/2017.
  */
 public class WebDriverUtil {
-
+    long explicitWait = Long.parseLong(PropertiesCache.getProperty("wait.explicit"));
     private WebDriver webDriver;
     private WebDriverWait webDriverWait;
+    private JavascriptExecutor executor;
 
     public WebDriverUtil(WebDriver webDriver) {
         this.webDriver = webDriver;
-        webDriverWait = new WebDriverWait(webDriver,10);
+        webDriverWait = new WebDriverWait(webDriver,explicitWait);
     }
     public WebElement waitForExpectedCondition(ExpectedCondition expectedCondition){
       return (WebElement) webDriverWait.until(expectedCondition);
+    }
+
+    public void jsClick(String locator, String type) {
+        executor = (JavascriptExecutor) webDriver;
+        switch (type){
+            case "id":
+                executor.executeScript("document.getElementById(\""+ locator +"\").value =\"Selenium\"");
+                break;
+            case "name":
+                executor.executeScript("document.getElementsByName(\""+ locator +"\")[0].value = \"Selenium\"");
+                break;
+            case "class":
+                executor.executeScript("document.getElementsByClassName(\""+ locator +"\")[0].value = \"Selenium\"");
+
+        }
     }
 
     @Attachment(value = "{0}")
@@ -39,5 +52,6 @@ public class WebDriverUtil {
         }
         return new byte[0];
     }
+
 
 }

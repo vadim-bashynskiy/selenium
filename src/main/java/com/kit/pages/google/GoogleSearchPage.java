@@ -26,8 +26,9 @@ public class GoogleSearchPage extends GoogleBasePage{
     @Step("Fills a search text \"{0}\" and presses the enter")
     public void fillAndSubmitSearchData(String searchText){
         searchField = webDriver.findElement(searchLocator);
-        searchField.sendKeys(searchText);
-        searchField.submit();
+        webDriverUtil.jsClick("q","name");
+        //searchField.sendKeys(searchText);
+        //searchField.submit();
     }
 
 }
