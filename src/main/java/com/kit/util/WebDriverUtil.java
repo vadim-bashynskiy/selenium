@@ -41,6 +41,21 @@ public class WebDriverUtil {
 
         }
     }
+    public void jsClickk(String locator, String type) {
+        executor = (JavascriptExecutor) webDriver;
+        switch (type){
+            case "id":
+                executor.executeScript("document.getElementById(\""+ locator +"\").click");
+                break;
+            case "name":
+                executor.executeScript("document.getElementsByName(\""+ locator +"\")[0].click");
+                break;
+            case "class":
+                executor.executeScript("document.getElementsByClassName(\""+ locator +"\")[0].click");
+
+        }
+    }
+
 
     @Attachment(value = "{0}")
     public byte[] saveScreenshot(String Name) {

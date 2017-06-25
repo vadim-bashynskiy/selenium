@@ -66,7 +66,7 @@ public class WebDriverTestBase {
         }
     }
 
-   // @AfterClass
+    @AfterClass
     public void tearDown() {
         //Closes a browser
          //webDriver.close();
