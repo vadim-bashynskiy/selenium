@@ -30,8 +30,9 @@ public class TomCook extends WebDriverTestBase{
             assertFalse("Elements not found", true);
         }
 
+        //simple case with java script
        // WebElement element = webDriver.findElement(By.cssSelector(".SearchbarForm-summary.ng-binding"));
-      //  element.click();
+      //   element.click();
         webDriverUtil.jsClick("SearchbarForm-origin","id");
         webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(By.className("deliver-component-CloseButton-times"))).click();
     }
