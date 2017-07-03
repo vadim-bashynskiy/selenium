@@ -39,7 +39,7 @@ public class GoogleSearchTest extends WebDriverTestBase {
         GoogleSearchResultPage googleSearchResultPage = new GoogleSearchResultPage(webDriver);
      //   googleSearchResultPage.takeScreenshot(searchText);
         assertTrue(googleSearchResultPage.getLinkText().contains(searchText));
-        List<WebElement> webElementList = webDriver.findElements(By.cssSelector(".r>adfgfdg"));
+        List<WebElement> webElementList = webDriver.findElements(By.cssSelector(".r>a"));
         if (!webElementList.isEmpty()) {
             for (WebElement webElement : webElementList) {
                 assertTrue(webElement.getText().toLowerCase().contains(searchText.toLowerCase()));
