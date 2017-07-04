@@ -31,13 +31,13 @@ public class WebDriverUtil {
         executor = (JavascriptExecutor) webDriver;
         switch (type){
             case "id":
-                executor.executeScript("document.getElementById(\""+ locator +"\").value =\"Selenium\"");
+                executor.executeScript("document.getElementById(\""+ locator +"\").value =\"London\"");
                 break;
             case "name":
-                executor.executeScript("document.getElementsByName(\""+ locator +"\")[0].value = \"Selenium\"");
+                executor.executeScript("document.getElementsByName(\""+ locator +"\")[0].value = \"London\"");
                 break;
             case "class":
-                executor.executeScript("document.getElementsByClassName(\""+ locator +"\")[0].value = \"Selenium\"");
+                executor.executeScript("document.getElementsByClassName(\""+ locator +"\")[0].value = \"London\"");
 
         }
     }

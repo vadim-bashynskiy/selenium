@@ -21,17 +21,25 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 
 public class BettingTest extends WebDriverTestBase {
-    String CSV_Path = "D:\\kitcenterCourses\\selenium\\src\\main\\resources\\testList.csv";
+    String workingDirectory = System.getProperty("user.dir");
+    String pathToFile = "\\src\\main\\resources\\testList.csv";
+    String CSV_Path = workingDirectory + pathToFile;
+   // String CSV_Path = "D:\\kitcenterCourses\\selenium\\src\\main\\resources\\testList.csv";
 
     @Test
     public void testBetting() throws Exception {
         int exceptionCount = 0;
         int assertException = 0;
+        String pattern = "https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/";
         By frameLocator = By.className("betradarFrame");
+        By frameLocator2 = By.id("gameFrame");
+        By frameLocator3 = By.id("frame");
+        By frameLocator4 = By.id("vdrframe");
         By locator = By.cssSelector(".virtual-sports.active");
         By langLocator = By.cssSelector(".soccer");
         By imageLocator = By.id("racecal_statistic");
         WebDriverUtil webDriverUtil = new WebDriverUtil(webDriver);
+
         CSVReader reader = new CSVReader(new FileReader(CSV_Path));
         String[] csvCell;
 
@@ -53,16 +61,16 @@ public class BettingTest extends WebDriverTestBase {
                 Thread.sleep(15000);
                 WebElement iframe = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(frameLocator));
                 webDriver.switchTo().frame(iframe);
-                WebElement iframe2 = webDriver.findElement(By.id("gameFrame"));
+                WebElement iframe2 = webDriver.findElement(frameLocator2);
                 webDriver.switchTo().frame(iframe2);
-                WebElement iframe3 = webDriver.findElement(By.id("frame"));
+                WebElement iframe3 = webDriver.findElement(frameLocator3);
                 webDriver.switchTo().frame(iframe3);
-                WebElement iframe4 = webDriver.findElement(By.id("vdrframe"));
+                WebElement iframe4 = webDriver.findElement(frameLocator4);
                 webDriver.switchTo().frame(iframe4);
                 //find calendar element with link
                 element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(imageLocator));
                 //check patern link
-                assertTrue(element.getAttribute("href").matches("https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/" + lang));
+                assertTrue(element.getAttribute("href").matches(pattern + lang));
 
             } catch (Exception e) {
                 exceptionCount++;
@@ -75,6 +83,7 @@ public class BettingTest extends WebDriverTestBase {
             }
 
         }
+
         if (exceptionCount > 0 || assertException > 0) {
             assertTrue(false);
         }
