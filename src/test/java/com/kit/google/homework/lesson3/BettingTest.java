@@ -29,6 +29,7 @@ public class BettingTest extends WebDriverTestBase {
         int timeOutExeption = 0;
         By locator = By.cssSelector(".virtual-sports.active");
         By langLocator = By.cssSelector(".soccer");
+        By imageLocator = By.cssSelector("#vhc.boxtitle.boxtitle_inner");
         WebDriverUtil webDriverUtil = new WebDriverUtil(webDriver);
         CSVReader reader = new CSVReader(new FileReader(CSV_Path));
         String[] csvCell;
@@ -50,6 +51,12 @@ public class BettingTest extends WebDriverTestBase {
                 element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(langLocator));
                 System.out.println(element.getText() + "=" + testWorldLang);
                 assertTrue(element.getText().equals(testWorldLang));
+                //check patern link
+                WebElement iframe = webDriver.findElement(By.id("vhcframe"));
+                webDriver.switchTo().frame(iframe);
+                element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(imageLocator));
+                assertTrue(element.getAttribute("href").matches("/vhc/statistic/race_calendar/\\d+/" + ""));
+
 
             } catch (NotFoundException e) {
                 notFoundException++;
