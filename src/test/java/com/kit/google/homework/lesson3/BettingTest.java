@@ -22,14 +22,15 @@ import static org.testng.AssertJUnit.assertTrue;
 
 public class BettingTest extends WebDriverTestBase {
     String CSV_Path = "D:\\kitcenterCourses\\selenium\\src\\main\\resources\\testList.csv";
+
     @Test
     public void testBetting() throws Exception {
-        int notFoundException = 0;
-        int assertExeption = 0;
-        int timeOutExeption = 0;
+        int exceptionCount = 0;
+        int assertException = 0;
+        By frameLocator = By.className("betradarFrame");
         By locator = By.cssSelector(".virtual-sports.active");
         By langLocator = By.cssSelector(".soccer");
-        By imageLocator = By.cssSelector("#vhc.boxtitle.boxtitle_inner");
+        By imageLocator = By.id("racecal_statistic");
         WebDriverUtil webDriverUtil = new WebDriverUtil(webDriver);
         CSVReader reader = new CSVReader(new FileReader(CSV_Path));
         String[] csvCell;
@@ -37,13 +38,10 @@ public class BettingTest extends WebDriverTestBase {
         while ((csvCell = reader.readNext()) != null) {
             String url = csvCell[0];
             String testWorldLang = csvCell[1];
+            String lang = csvCell[2];
 
             try {
                 webDriver.get(url);
-               /* WebElement elementInput = webDriver.findElement(By.name("url"));
-                elementInput.click();
-                elementInput.sendKeys(url);
-                elementInput.submit();*/
                 //check virtual sports is active
                 WebElement element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(locator));
                 assertTrue(element.getAttribute("class").contains("active"));
@@ -51,29 +49,33 @@ public class BettingTest extends WebDriverTestBase {
                 element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(langLocator));
                 System.out.println(element.getText() + "=" + testWorldLang);
                 assertTrue(element.getText().equals(testWorldLang));
-                //check patern link
-                WebElement iframe = webDriver.findElement(By.id("vhcframe"));
+                //input path to our iFrame
+                Thread.sleep(15000);
+                WebElement iframe = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(frameLocator));
                 webDriver.switchTo().frame(iframe);
+                WebElement iframe2 = webDriver.findElement(By.id("gameFrame"));
+                webDriver.switchTo().frame(iframe2);
+                WebElement iframe3 = webDriver.findElement(By.id("frame"));
+                webDriver.switchTo().frame(iframe3);
+                WebElement iframe4 = webDriver.findElement(By.id("vdrframe"));
+                webDriver.switchTo().frame(iframe4);
+                //find calendar element with link
                 element = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(imageLocator));
-                assertTrue(element.getAttribute("href").matches("/vhc/statistic/race_calendar/\\d+/" + ""));
+                //check patern link
+                assertTrue(element.getAttribute("href").matches("https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/" + lang));
 
-
-            } catch (NotFoundException e) {
-                notFoundException++;
+            } catch (Exception e) {
+                exceptionCount++;
                 e.printStackTrace();
-                System.out.println("element not found for website" + url);
+                System.out.println("errors for this link :" + url);
             } catch (AssertionError j) {
-                assertExeption++;
+                assertException++;
                 j.printStackTrace();
-                System.out.println("assertError for website" + url);
-            } catch (TimeoutException c) {
-                timeOutExeption++;
-                c.printStackTrace();
-                System.out.println("element not found for website" + url);
+                System.out.println("assertError for this link" + url);
             }
 
         }
-        if (notFoundException > 0 || assertExeption > 0 || timeOutExeption > 0) {
+        if (exceptionCount > 0 || assertException > 0) {
             assertTrue(false);
         }
     }
