@@ -29,6 +29,7 @@ public class BettingTest extends WebDriverTestBase {
     String workingDirectory = System.getProperty("user.dir");
     String pathToFile = "\\src\\main\\resources\\testList.csv";
     String CSV_Path = workingDirectory + pathToFile;
+    By imageLocator = By.id("racecal_statistic");
     int i = 0;
     String url = null;
 
@@ -92,9 +93,11 @@ public class BettingTest extends WebDriverTestBase {
                     //input path to our iFrame and check pattern link
                     Thread.sleep(10000);
                     System.out.println("pattern" + i++);
-                    System.out.println(bettingPage.CheckPattern());
-                    System.out.println(pattern+lang);
-                    assertTrue(bettingPage.CheckPattern().matches(pattern + lang));
+                    bettingPage.CheckPattern();
+                    WebElement element = webDriver.findElement(imageLocator);
+                    assertTrue(element.getAttribute("href").matches(pattern + lang));
+                    System.out.println("our patern " + pattern+lang);
+                    System.out.println("code patern " +  element.getAttribute("href"));
                 } catch (AssertionError a) {
                     a.printStackTrace();
                     System.out.println("error with website :" + url);
