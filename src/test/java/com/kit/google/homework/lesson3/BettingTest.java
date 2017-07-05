@@ -24,44 +24,86 @@ import static org.testng.AssertJUnit.assertTrue;
  */
 
 public class BettingTest extends WebDriverTestBase {
-    BettingPage bettingPage = new BettingPage(webDriver);
+    //WebDriverUtil webDriverUtil = new WebDriverUtil(webDriver);
     String pattern = "https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/";
     String workingDirectory = System.getProperty("user.dir");
     String pathToFile = "\\src\\main\\resources\\testList.csv";
     String CSV_Path = workingDirectory + pathToFile;
-    CSVReader reader = new CSVReader(new FileReader(CSV_Path));
-    String[] csvCell;
-    String url = csvCell[0];
-    String testWorldLang = csvCell[1];
-    String lang = csvCell[2];
-
-    public BettingTest() throws FileNotFoundException {
-    }
+    int i = 0;
+    String url = null;
 
     @Test
     public void virtualSportsActive() throws Exception {
+        BettingPage bettingPage = new BettingPage(webDriver);
+        CSVReader reader = new CSVReader(new FileReader(CSV_Path));
+        String[] csvCell;
+        int errorCount = 0;
         while ((csvCell = reader.readNext()) != null) {
-            bettingPage.open(url);
-            assertTrue(bettingPage.checkActiveTab().contains("active"));
-        }
+                url = csvCell[0];
+                try {
+                    System.out.println("active" + i++);
+
+                    bettingPage.open(url);
+                    assertTrue(bettingPage.checkActiveTab().contains("active"));
+                } catch (AssertionError a) {
+                    a.printStackTrace();
+                    System.out.println("error with website :" + url);
+                    errorCount++;
+                }
+            }
+        if (errorCount >0){assertTrue(false);}
+
     }
 
     @Test
-    public void localeLanguage() throws IOException {
+    public void localeLanguage() throws Exception {
+        BettingPage bettingPage = new BettingPage(webDriver);
+        CSVReader reader = new CSVReader(new FileReader(CSV_Path));
+        String[] csvCell;
+        int errorCount = 0;
         while ((csvCell = reader.readNext()) != null) {
-            bettingPage.open(url);
-            assertTrue(bettingPage.checkLanguageLocale().equals(testWorldLang));
+            url = csvCell[0];
+            String testWorldLang = csvCell[1];
+            try {
+                bettingPage.open(url);
+                System.out.println("local" + i++);
+                assertTrue(bettingPage.checkLanguageLocale().equals(testWorldLang));
+
+            } catch (AssertionError a) {
+                a.printStackTrace();
+                System.out.println("error with website :" + url);
+                errorCount++;
+            }
         }
+        if (errorCount >0){assertTrue(false);}
     }
 
     @Test
     public void checkPattern() throws IOException {
+        BettingPage bettingPage = new BettingPage(webDriver);
+        CSVReader reader = new CSVReader(new FileReader(CSV_Path));
+        String[] csvCell;
+        int errorCount = 0;
         while ((csvCell = reader.readNext()) != null) {
-            bettingPage.open(url);
-            //input path to our iFrame and check pattern link
-            //Thread.sleep(15000);
-            assertTrue(bettingPage.CheckPattern().matches(pattern + lang));
-        }
-
+                url = csvCell[0];
+                String lang = csvCell[2];
+                try {
+                    bettingPage.open(url);
+                    //input path to our iFrame and check pattern link
+                    Thread.sleep(10000);
+                    System.out.println("pattern" + i++);
+                    System.out.println(bettingPage.CheckPattern());
+                    System.out.println(pattern+lang);
+                    assertTrue(bettingPage.CheckPattern().matches(pattern + lang));
+                } catch (AssertionError a) {
+                    a.printStackTrace();
+                    System.out.println("error with website :" + url);
+                    errorCount++;
+                }catch (Exception e){
+                    e.printStackTrace();
+                    errorCount++;
+                }
+            }
+        if (errorCount >0){assertTrue(false);}
     }
 }

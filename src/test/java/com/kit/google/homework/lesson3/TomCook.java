@@ -1,13 +1,17 @@
 package com.kit.google.homework.lesson3;
 
+import au.com.bytecode.opencsv.CSVReader;
 import com.kit.core.WebDriverTestBase;
+import com.kit.pages.BettingPage;
 import com.kit.util.WebDriverUtil;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
+import java.io.FileReader;
 import java.util.List;
 
 import static org.testng.Assert.assertTrue;
@@ -29,7 +33,9 @@ import static org.testng.Assert.assertTrue;
 public class TomCook extends WebDriverTestBase {
     private String outText = "7 Nights";
     private String nextText = "Audi";
-
+    String workingDirectory = System.getProperty("user.dir");
+    String pathToFile = "\\src\\main\\resources\\testList.csv";
+    String CSV_Path = workingDirectory + pathToFile;
     @Test
     public void test() throws InterruptedException {
 

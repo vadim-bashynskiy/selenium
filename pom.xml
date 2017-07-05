@@ -56,12 +56,6 @@
         <dependency>
             <groupId>net.sf.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>2.3</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.opencsv</groupId>
-            <artifactId>opencsv</artifactId>
             <version>RELEASE</version>
         </dependency>
     </dependencies>
@@ -83,7 +77,13 @@
                         <artifactId>aspectjweaver</artifactId>
                         <version>${aspectj.version}</version>
                     </dependency>
+                    <dependency>
+                        <groupId>net.sourceforge.javacsv</groupId>
+                        <artifactId>javacsv</artifactId>
+                        <version>2.0</version>
+                    </dependency>
                 </dependencies>
+
             </plugin>
             <!--Needed only to show reports locally. Run jetty:run and
            open localhost:8080 to show the report-->

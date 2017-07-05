@@ -9,6 +9,7 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import java.io.File;
 
 import static com.google.common.io.Files.toByteArray;
+import static org.testng.AssertJUnit.assertTrue;
 
 /**
  * Created by testu on 6/16/2017.
@@ -67,6 +68,5 @@ public class WebDriverUtil {
         }
         return new byte[0];
     }
-
 
 }
