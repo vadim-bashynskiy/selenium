@@ -3,16 +3,10 @@ package com.kit.google.homework.lesson3;
 import au.com.bytecode.opencsv.CSVReader;
 import com.kit.core.WebDriverTestBase;
 import com.kit.pages.BettingPage;
-import com.kit.util.WebDriverUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -93,7 +87,7 @@ public class BettingTest extends WebDriverTestBase {
                     //input path to our iFrame and check pattern link
                     Thread.sleep(10000);
                     System.out.println("pattern" + i++);
-                    bettingPage.CheckPattern();
+                    bettingPage.checkPattern();
                     WebElement element = webDriver.findElement(imageLocator);
                     assertTrue(element.getAttribute("href").matches(pattern + lang));
                     System.out.println("our patern " + pattern+lang);

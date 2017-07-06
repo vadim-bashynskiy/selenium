@@ -42,7 +42,7 @@ public class BettingPage extends BettingBasePage {
         return language.getText();
     }
 
-    public void CheckPattern() {
+    public String checkPattern() {
         //switch to our iFrame
         frameElement1 = webDriverUtil.waitForExpectedCondition(ExpectedConditions.visibilityOfElementLocated(frameLocator1));
         webDriver.switchTo().frame(frameElement1);
@@ -53,7 +53,13 @@ public class BettingPage extends BettingBasePage {
         frameElement4 = webDriver.findElement(frameLocator4);
         webDriver.switchTo().frame(frameElement4);
         //find calendar element with attribute href pattern
-        /*image = webDriver.findElement(imageLocator);
-        return image.getAttribute("href");*/
+        image = webDriver.findElement(imageLocator);
+        return image.getAttribute("href");
+    }
+    public String imageLociframe(){
+        checkPattern();
+        image = webDriver.findElement(imageLocator);
+        return image.getAttribute("href");
+
     }
 }

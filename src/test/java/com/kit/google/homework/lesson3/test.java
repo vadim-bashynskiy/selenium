@@ -1,31 +1,29 @@
 package com.kit.google.homework.lesson3;
 
+import au.com.bytecode.opencsv.CSVReader;
 import com.kit.core.WebDriverTestBase;
 import com.kit.pages.BettingPage;
+import com.kit.util.WebDriverUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static org.testng.AssertJUnit.assertTrue;
 
 /**
- * Created by admin on 06.07.2017.
+ * Created by VBashynskyi on 05.07.2017.
  */
-public class BettingTest1 extends WebDriverTestBase {
+public class test extends WebDriverTestBase{
     String pattern = "https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/";
-    By imageLocator = By.id("racecal_statistic");
 
     @DataProvider
-    public Object[][] testData() {
-        return new Object[][]{
-                new Object[]{"https://www.trbet55.com/tr/virtual-sports#greyhounds", "FUTBOL", "tr"},
-                new Object[]{"https://www.trbet55.com/en/virtual-sports#greyhounds", "SOCCER", "en"},
-                new Object[]{"https://www.bettilt2.com/en/virtual-sports#greyhounds", "SOCCER", "en"},
-                new Object[]{"https://www.bettilt2.com/pt/virtual-sports#greyhounds", "FUTEBOL", "pt"},
-        };
+    public Object[][] testData() throws IOException {
+               return WebDriverUtil.csvRead(WebDriverUtil.csvPath());
     }
 
     @Test(dataProvider = "testData")
