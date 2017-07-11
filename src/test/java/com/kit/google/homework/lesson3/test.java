@@ -19,7 +19,7 @@ import static org.testng.AssertJUnit.assertTrue;
  * Created by VBashynskyi on 05.07.2017.
  */
 public class test extends WebDriverTestBase{
-    String pattern = "https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/";
+   private String pattern = "https://rgs.betradar.com/vdr/statistic/race_calendar/\\d+/";
 
     @DataProvider
     public Object[][] testData() throws IOException {

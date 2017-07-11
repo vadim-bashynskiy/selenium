@@ -77,6 +77,8 @@ public class WebDriverUtil {
     public static Object[][] csvRead(String path) throws IOException {
         CSVReader reader = null;
         ArrayList<String[]> list = new ArrayList<>();
+//      InputStream in = this.getClass().getClassLoader().getResourceAsStream("test.properties");
+
         try {
             reader = new CSVReader(new FileReader(path));
             String[] csvCell;
