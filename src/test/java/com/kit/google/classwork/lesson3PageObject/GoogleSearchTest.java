@@ -28,7 +28,7 @@ import static org.testng.AssertJUnit.assertFalse;
 public class GoogleSearchTest extends WebDriverTestBase {
     private String googleSearch= "https://www.google.com.ua";
     private String searchText = "Selenium";
-    @Title("Google search test - positive scenario")
+    @Title("Google search TestBetting - positive scenario")
     @Description("Searches any text on google.com")
     //перед тестом (enabled = false) если еще в разработке и не хочешь что бы выполнялось
     @Test
@@ -48,7 +48,7 @@ public class GoogleSearchTest extends WebDriverTestBase {
             assertFalse("Elements not found", true);
         }
     }
-    @Title("Google search test enabled")
+    @Title("Google search TestBetting enabled")
     @Description("Searches any text on google.com")
     @Test()
     public void searchTestExample(){

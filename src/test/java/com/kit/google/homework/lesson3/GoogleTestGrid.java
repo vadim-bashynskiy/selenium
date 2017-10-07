@@ -28,7 +28,7 @@ public class GoogleTestGrid extends WebDriverTestBase {
         webDriver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
     }
 
-    @Test(description="Test Google")
+    @Test(description="TestBetting Google")
     public void testGoogle() throws InterruptedException {
         webDriver.get("https://www.google.com.ua");
     }

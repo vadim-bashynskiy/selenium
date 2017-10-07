@@ -56,10 +56,4 @@ public class BettingPage extends BettingBasePage {
         image = webDriver.findElement(imageLocator);
         return image.getAttribute("href");
     }
-    public String imageLociframe(){
-        checkPattern();
-        image = webDriver.findElement(imageLocator);
-        return image.getAttribute("href");
-
-    }
 }
